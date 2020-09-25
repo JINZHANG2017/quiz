@@ -10,17 +10,29 @@ class AddProduct extends Component {
         this.setState({[inputid]:e.target.value});
         }
     submit=()=>{
-        alert(JSON.stringify(this.state));
+        let url="http://localhost:8080/product/add";
+        let json=JSON.stringify(this.state);
+        fetch(url,{
+            method:"POST",
+            body:json
+        }).then((response)=>{
+            if(response.status==200){
+                alert("添加成功！");
+            }else{
+                alert("添加失败！错误码："+response.status);
+            }
+        })
+        //alert();
     }
   render() { 
       return (<form>
     <h1>Home</h1>
     <div class="form-group">
-      <label htmlFor="name">名称:</label>
+      <label htmlFor="name">名称：</label>
       <input className="form-control" id="name" value={this.state.name} onChange={(e) =>this.change(e,"name")}></input>
     </div>
     <div class="form-group">
-      <label htmlFor="gender">价格:</label>
+      <label htmlFor="gender">价格：</label>
       <input className="form-control" id="unitPrice" value={this.state.unitPrice} onChange={(e) =>this.change(e,"unitPrice")}></input>
     </div>
     <div class="form-group">

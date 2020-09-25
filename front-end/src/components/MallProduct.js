@@ -7,6 +7,7 @@ class MallProduct extends Component {
     <div>{this.props.value.unitPrice}</div>
     <div>{this.props.value.unit}</div>
     <div>{this.props.value.img}</div>
+    <button>add to order</button>
   </ul>;
   }
 }
