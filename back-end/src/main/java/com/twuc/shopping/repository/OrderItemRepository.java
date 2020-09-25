@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface OrderItemRepository extends CrudRepository<OrderItemEntity, Integer> {
     List<OrderItemEntity> findAll();
+    List<OrderItemEntity> findAllByProductEntityIdEquals(Integer id);
 }

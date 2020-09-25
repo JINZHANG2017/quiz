@@ -1,16 +1,24 @@
 package com.twuc.shopping.api;
 
+import com.twuc.shopping.dto.ProductDto;
+import com.twuc.shopping.entity.OrderItemEntity;
 import com.twuc.shopping.entity.ProductEntity;
+import com.twuc.shopping.repository.OrderItemRepository;
 import com.twuc.shopping.repository.ProductRepository;
+import com.twuc.shopping.util.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.hasKey;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,8 +30,11 @@ class ProductControllerTest {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    OrderItemRepository orderItemRepository;
+
     @Test
-    public void shouldGetRsEventList() throws Exception {
+    public void shouldGetProductList() throws Exception {
         ProductEntity p=ProductEntity.builder()
                 .img("sdfsf")
                 .name("sdfsxcxc")
@@ -34,5 +45,21 @@ class ProductControllerTest {
                 .perform(get("/product/list"))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldAddNewProductToOrder() throws Exception {
+        ProductEntity p=ProductEntity.builder()
+                .img("sdfsf")
+                .name("sdfsxcxc")
+                .unit("mm")
+                .build();
+        productRepository.save(p);
+        mockMvc
+                .perform(get("/product/addToOrder/{id}",p.getId()))
+                .andExpect(status().isOk());
+        List<OrderItemEntity> orderItemEntityList = orderItemRepository.findAll();
+        assertEquals(1,orderItemEntityList.size());
+        assertEquals(1,orderItemEntityList.get(0).getNum());
     }
 }
