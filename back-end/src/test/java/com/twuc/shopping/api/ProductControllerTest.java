@@ -6,11 +6,13 @@ import com.twuc.shopping.entity.ProductEntity;
 import com.twuc.shopping.repository.OrderItemRepository;
 import com.twuc.shopping.repository.ProductRepository;
 import com.twuc.shopping.util.JsonUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -33,7 +35,11 @@ class ProductControllerTest {
 
     @Autowired
     OrderItemRepository orderItemRepository;
-
+    @BeforeEach
+    void setUp() {
+        productRepository.deleteAll();
+        orderItemRepository.deleteAll();
+    }
     @Test
     public void shouldGetProductList() throws Exception {
         ProductEntity p=ProductEntity.builder()
@@ -83,5 +89,22 @@ class ProductControllerTest {
         List<OrderItemEntity> orderItemEntityList = orderItemRepository.findAll();
         assertEquals(1,orderItemEntityList.size());
         assertEquals(2,orderItemEntityList.get(0).getNum());
+    }
+
+    @Test
+    public void shouldAddAProduct() throws Exception {
+        ProductEntity p=ProductEntity.builder()
+                .img("sdfsf")
+                .name("sdfsxcxc")
+                .unit("mm")
+                .build();
+        ProductDto productDto = p.toDto();
+        String json = JsonUtils.toJson(productDto);
+        mockMvc
+                .perform(post("/product/add").content(json).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        List<ProductEntity> productEntities = productRepository.findAll();
+        assertEquals(1,productEntities.size());
+        assertEquals("sdfsxcxc",productEntities.get(0).getName());
     }
 }

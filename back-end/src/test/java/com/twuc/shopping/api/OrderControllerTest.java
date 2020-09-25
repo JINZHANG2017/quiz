@@ -5,6 +5,7 @@ import com.twuc.shopping.entity.OrderItemEntity;
 import com.twuc.shopping.entity.ProductEntity;
 import com.twuc.shopping.repository.OrderItemRepository;
 import com.twuc.shopping.repository.ProductRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,6 +33,11 @@ class OrderControllerTest {
     @Autowired
     ProductRepository productRepository;
 
+    @BeforeEach
+    void setUp() {
+        productRepository.deleteAll();
+        orderItemRepository.deleteAll();
+    }
     @Test
     public void shouldGetOrderList() throws Exception {
 
