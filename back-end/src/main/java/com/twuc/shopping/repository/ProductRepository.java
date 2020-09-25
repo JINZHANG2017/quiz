@@ -1,6 +1,6 @@
 package com.twuc.shopping.repository;
 
-import com.twuc.shopping.dto.OrderDto;
+//import com.twuc.shopping.dto.OrderDto;
 import com.twuc.shopping.dto.ProductDto;
 import com.twuc.shopping.entity.ProductEntity;
 import org.springframework.data.repository.CrudRepository;

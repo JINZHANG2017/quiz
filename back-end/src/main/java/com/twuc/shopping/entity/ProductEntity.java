@@ -1,15 +1,14 @@
 package com.twuc.shopping.entity;
 
+//import com.twuc.shopping.dto.OrderDto;
 import com.twuc.shopping.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Builder
@@ -25,6 +24,8 @@ public class ProductEntity {
     private Double unitPrice;
     private String unit;
     private String img;
+//    @ManyToMany
+//    private List<OrderEntity> orderEntityList;
 
     public ProductDto toDto(){
         return ProductDto.builder()

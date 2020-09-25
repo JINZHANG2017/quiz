@@ -1,11 +1,10 @@
 package com.twuc.shopping.api;
 
-import com.twuc.shopping.dto.OrderDto;
-import com.twuc.shopping.entity.OrderEntity;
-import com.twuc.shopping.repository.OrderRepository;
+import com.twuc.shopping.dto.OrderItemDto;
+import com.twuc.shopping.entity.OrderItemEntity;
+import com.twuc.shopping.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class OrderController {
+public class OrderItemController {
     @Autowired
-    OrderRepository orderRepository;
+    OrderItemRepository orderitemRepository;
 
-    @GetMapping("/order/list")
-    public ResponseEntity<List<OrderDto>> getOrderDtoList(){
-        List<OrderDto> list=new ArrayList<>();
-        List<OrderEntity> orderEntityList = orderRepository.findAll();
+    @GetMapping("/orderitem/list")
+    public ResponseEntity<List<OrderItemDto>> getOrderDtoList(){
+        List<OrderItemDto> list=new ArrayList<>();
+        List<OrderItemEntity> orderEntityList = orderitemRepository.findAll();
         orderEntityList.forEach(orderEntity -> list.add(orderEntity.toDto()));
         return ResponseEntity.ok(list);
     }

@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -16,4 +19,6 @@ public class ProductDto {
     private Double unitPrice;
     private String unit;
     private String img;
+//    private List<OrderDto>;
+
 }

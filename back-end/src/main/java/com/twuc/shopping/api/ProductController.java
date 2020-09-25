@@ -1,10 +1,7 @@
 package com.twuc.shopping.api;
 
-import com.twuc.shopping.dto.OrderDto;
 import com.twuc.shopping.dto.ProductDto;
-import com.twuc.shopping.entity.OrderEntity;
 import com.twuc.shopping.entity.ProductEntity;
-import com.twuc.shopping.repository.OrderRepository;
 import com.twuc.shopping.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
