@@ -1,11 +1,14 @@
 package com.twuc.shopping.entity;
 
+import com.twuc.shopping.dto.OrderDto;
+import com.twuc.shopping.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,12 +20,24 @@ import java.util.List;
 public class OrderEntity {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
     private Double unitPrice;
-    private String amount;
+    private Integer amount;
     private String unit;
 
-    @OneToMany
-    private List<ProductEntity> productEntityList;
+//    @ManyToMany
+//    private List<ProductEntity> productEntityList;
+
+    public OrderDto toDto(){
+        List<ProductDto> list=new ArrayList<>();
+//        productEntityList.forEach(productEntity -> list.add(productEntity.toDto()));
+        return OrderDto.builder()
+                .amount(amount)
+                .name(name)
+                .unit(unit)
+                .unitPrice(unitPrice)
+//                .productDtoList(list)
+                .build();
+    }
 }

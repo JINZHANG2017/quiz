@@ -1,5 +1,6 @@
 package com.twuc.shopping.entity;
 
+import com.twuc.shopping.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +20,18 @@ import javax.persistence.Table;
 public class ProductEntity {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
     private Double unitPrice;
     private String unit;
     private String img;
+
+    public ProductDto toDto(){
+        return ProductDto.builder()
+                .img(img)
+                .name(name)
+                .unit(unit)
+                .unitPrice(unitPrice)
+                .build();
+    }
 }

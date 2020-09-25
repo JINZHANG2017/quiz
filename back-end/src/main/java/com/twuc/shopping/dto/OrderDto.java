@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class OrderDto {
     private String name;
     private Double unitPrice;
-    private String amount;
+    private Integer amount;
     private String unit;
+//    private List<ProductDto> productDtoList;
 }
